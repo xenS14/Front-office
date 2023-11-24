@@ -1,0 +1,75 @@
+<link rel="stylesheet" href="homepage.css">
+<header>
+    <div class="header">
+        <h1 class="username">Jack Thiem</h1>
+        <button class="disconnect-btn">Déconnexion</button>
+    </div>
+</header>
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <h1 class="map-title">Où se situe la sonde ?</h1>
+<div class="map-container">
+    <iframe class="map" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d90493.80973865828!2d-0.668412091779334!3d44.863688174378176!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd5527e8f751ca81%3A0x796386037b397a89!2sBordeaux!5e0!3m2!1sfr!2sfr!4v1700658614047!5m2!1sfr!2sfr" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+</div>
+<div class="graph-container">
+    <div class="graph-buttons">
+        <button onclick="afficherGraphique('temperature')">Température</button>
+        <button onclick="afficherGraphique('humidite')">Humidité</button>
+        <button>Historique</button>
+    </div>
+<canvas id="myChart" width="400" height="200"></canvas>
+    </div>
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+      var ctx = document.getElementById('myChart').getContext('2d');
+  
+      // Fonction pour afficher le graphique en fonction du type (temperature ou humidite)
+      function afficherGraphique(type) {
+        // Données d'exemple pour les températures et l'humidité
+        var temperatures = [20, 25, 18, 30, 22, 28];
+        var humidite = [50, 60, 45, 70, 55, 65];
+  
+        var data;
+        if (type === 'temperature') {
+          data = temperatures;
+        } else if (type === 'humidite') {
+          data = humidite;
+        }
+  
+        // Créez un objet de configuration du graphique
+        var config = {
+          type: 'line',
+          data: {
+            labels: ['Jour 1', 'Jour 2', 'Jour 3', 'Jour 4', 'Jour 5', 'Jour 6'],
+            datasets: [{
+              label: type.charAt(0).toUpperCase() + type.slice(1), // Première lettre en majuscule
+              data: data,
+              borderColor: type === 'temperature' ? 'rgba(75, 192, 192, 1)' : 'rgba(255, 99, 132, 1)',
+              borderWidth: 2,
+              fill: false,
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+          }
+        };
+  
+        // Détruit le graphique existant s'il y en a un
+        if (window.myChart) {
+          window.myChart.destroy();
+        }
+  
+        // Crée le nouveau graphique en utilisant le contexte du canvas et la configuration
+        window.myChart = new Chart(ctx, config);
+      }
+    });
+  </script>
+  
+</body>
+<!-- <footer>
+    <h2 class="ip-adress">Adresse IP : 10.133.130.88</h2>
+</footer> -->
